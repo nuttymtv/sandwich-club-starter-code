@@ -22,23 +22,25 @@ public class JsonUtils {
      *
      * */
     public static Sandwich parseSandwichJson(String jsonStringObj) throws JSONException {
-        Sandwich sandwichDetails = null;
         JSONObject jsonObject = new JSONObject(jsonStringObj);
         JSONObject name = jsonObject.getJSONObject("name");
+
         String origin = jsonObject.getString("placeOfOrigin");
         String desc = jsonObject.getString("description");
         String img = jsonObject.getString("image");
         String mainName = name.getString("mainName");
+
         List<String> asKnowAsName = getStringFromArrayObj(name.getJSONArray("alsoKnownAs"));
         List<String> ingrs = getStringFromArrayObj(jsonObject.getJSONArray("ingredients"));
         return new Sandwich(mainName,asKnowAsName,origin,desc,img,ingrs);
     }
 
     private static List<String> getStringFromArrayObj (JSONArray jsonArray) throws JSONException {
-        List<String> items = new ArrayList<String>();
+        List<String> items = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             items.add(jsonArray.getString(i));
         }
         return items;
     }
+
 }
