@@ -19,30 +19,29 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 import java.lang.invoke.CallSite;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+
+    @BindView(R.id.description_tv) TextView tvDescription;
+    @BindView(R.id.image_iv) ImageView ingredientsIv;
+    @BindView(R.id.origin_tv) TextView tvOrigin;
+    @BindView(R.id.also_known_tv) TextView tvAsKnownAs;
+    @BindView(R.id.ingredients_tv) TextView tvIngredient;
+    @BindView(R.id.img_progress) ProgressBar progressBar;
+
     Sandwich sandwich = null;
-    TextView tvDescription;
-    TextView tvOrigin;
-    TextView tvAsKnownAs;
-    TextView tvIngredient;
-    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        ImageView ingredientsIv = findViewById(R.id.image_iv);
-
-        tvDescription = findViewById(R.id.description_tv);
-        tvOrigin = findViewById(R.id.origin_tv);
-        tvAsKnownAs = findViewById(R.id.also_known_tv);
-        tvIngredient = findViewById(R.id.ingredients_tv);
-        progressBar = findViewById(R.id.img_progress);
-
+        ButterKnife.bind(this);
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -89,7 +88,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void closeOnError() {
+        private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
